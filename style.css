@@ -1,0 +1,28 @@
+.navbar{
+    background-color:#607d8b;
+}
+.navbar-brand{
+    color: #fff !important;
+}
+.navbar-brand.hover{
+    color: #fff !important;
+}
+.nav-link {
+    color: #fff !important;
+}
+.nav-link:active {
+    color: #fff !important;
+}
+.nav-link:hover{
+    color: #fff !important;
+}
+.btn-primary{
+    background-color: #607d8b !important;
+    border: 1px solid #607d8b!important;
+    width: 100px;
+}
+.btn-primary:hover{
+    background-color: #607d8b !important;
+    border: 2px solid #607d8b !important;
+    width: 100px;
+}
