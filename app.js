@@ -85,6 +85,29 @@ var currentUser = JSON.parse(localStorage.getItem("currentUser"));
 var title = document.getElementById("title");
 var description = document.getElementById("description");
 var editIndex = null;
+var imageInput = document.getElementById("imgInput")
+var previewImg = document.getElementById("previewImg")
+var storedBg = localStorage.getItem("cardBg");
+if (storedBg) {
+    cardBg = storedBg;
+    previewImg.src = cardBg;
+    previewImg.style.display = "block";
+}
+
+imageInput.addEventListener("change", function () {
+    var file = imageInput.files[0];
+
+    if (file) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            previewImg.src = e.target.result;
+            previewImg.style.display = "block";
+            cardBg = e.target.result;
+            localStorage.setItem("cardBg", cardBg);
+        };
+        reader.readAsDataURL(file);
+    }
+});
 
 function newPost() {
     var postsContainer = document.getElementById("posts");
@@ -97,7 +120,7 @@ function newPost() {
                 ~${allposts[i].name} <br>
                 <small>${allposts[i].time}</small>
             </div>
-            <div class="card-body" style="background-image:url(${allposts[i].img}); background-size:cover;">
+             <div class="card-body" style="background-image:url(${allposts[i].img}); background-size:cover; background-position:center;" class="img-fluid"> 
                 <p style="color:${allposts[i].color};">${allposts[i].title}</p>
                 <small style="color:${allposts[i].color};">${allposts[i].description}</small>
             </div>
@@ -109,7 +132,7 @@ function newPost() {
         `;
     }
 }
-
+newPost();
 function post() {
     var postTitle = document.getElementById("title");
     var postDesc = document.getElementById("description");
@@ -148,13 +171,21 @@ function post() {
     postDesc.value = "";
     selectedTextColor = "";
     cardBg = "";
+    previewImg.style.display = "none";
+    previewImg.src = "";
+    imageInput.value = "";
     newPost();
 }
-
 function editBtn(index) {
     var allPosts = JSON.parse(localStorage.getItem("posts")) || [];
+
     document.getElementById("title").value = allPosts[index].title;
     document.getElementById("description").value = allPosts[index].description;
+     cardBg = allPosts[index].img;
+    if (cardBg) {
+        previewImg.src = cardBg;
+      previewImg.style.display = "block";}
+
     editIndex = index;
     Swal.fire("Edit Mode", "Now update your post", "info");
 }

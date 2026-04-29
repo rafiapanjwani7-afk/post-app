@@ -12,7 +12,6 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.3);
     box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
 }
-
 .navbar-brand,
 .nav-link {
     color: #fff !important;
@@ -60,11 +59,9 @@ body {
     box-sizing: border-box;
     transition: box-shadow 0.3s ease;
 }
-
 input:focus {
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
 }
-
 .loginbtn {
     cursor: pointer;
     width: 220px;
@@ -77,23 +74,19 @@ input:focus {
     font-weight: bold;
     transition: 0.3s;
 }
-
 button:hover {
     transform: scale(1.1);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     background: linear-gradient(135deg, #00796b, #004d40);
     cursor: pointer;
 }
-
 .card {
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
     margin-bottom: 25px;
-    transition: 1s;
-
+    transition: 0.3s ease;
 }
-
 .card:hover {
 
     box-shadow: 0 20px 35px rgba(0, 0, 0, 0.15);
@@ -141,7 +134,6 @@ button:hover {
     background-color: rgba(29, 172, 155, 0.493);
     transform: scale(1.1);
 }
-
 .delBtn {
     width: 70px;
     border-radius: 15px;
@@ -219,7 +211,6 @@ a {
     border: 2px solid #036158 !important;
     transform: scale(1.2);
 }
-
 .logoutBtn {
     background: linear-gradient(135deg, #00796b, #004d40);
     color: #fff;
@@ -230,13 +221,20 @@ a {
     transition: 0.3s;
     width: 120px;
 }
-
 /* SweetAlert2 Custom Styles */
-.swal2-popup {
-    font-size: 16px !important;
+ .swal2-popup {
+  border-radius: 20px !important;
+   background: linear-gradient(90deg, #607d8b, #455a64)!important;
+  border: 1px solid rgba(255,255,255,0.3);
+  color: #fff !important;
 }
 
 .swal2-confirm {
-    background-color: #26a69a !important;
-    color: #fff !important;
+  background: #26a69a !important;
+  border-radius: 10px !important;
+}
+
+.swal2-cancel {
+  border-radius: 10px !important;
+  background: #e53935 !important;
 }

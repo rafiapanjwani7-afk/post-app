@@ -38,13 +38,16 @@
             <label for="exampleFormControlTextarea1" class="form-label">Description</label>
             <textarea class="form-control" id="description" rows="3" placeholder="add a post description"></textarea>
           </div>
-          <div class="mb-3 d-flex images justify-content-around">
+          <!-- <div class="mb-3 d-flex images justify-content-around">
             <img class="bgImg" onclick="addImg('images/1.webp')" src="images/1.webp" alt="">
             <img class="bgImg" onclick="addImg('images/4.jpg')" src="images/4.jpg" alt="">
             <img class="bgImg" onclick="addImg('images/5.jpg')" src="images/5.jpg" alt="">
             <img class="bgImg" onclick="addImg('images/3.webp')" src="images/3.webp" alt="">
             <img class="bgImg" onclick="addImg('images/2.webp')" src="images/2.webp" alt="">
-          </div>
+          </div> -->
+           <label class="btn btn-primary" for="imgInput">Upload Image</label>
+          <input type="file" class="d-none" id="imgInput" accept="image/*" >
+          <img  id="previewImg"  class="mt-3" style="max-width: 100%; height: auto; display: none;" alt="Image Preview">
           <label class="form-label ">Text Color</label>
                     <div class="color-div d-flex flex-wrap justify-content-around">
                         <div class="colorbox"
