@@ -5,6 +5,9 @@ body {
     min-height: 100vh;
     background-color: #eef2f7;
 }
+body {
+    scroll-behavior: smooth;
+}
 
 .navbar {
     background: #00897B;
@@ -79,6 +82,8 @@ button:hover {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     background: linear-gradient(135deg, #00796b, #004d40);
     cursor: pointer;
+    transform: scale(1.03);
+    transition: 0.2s ease;
 }
 .card {
     border-radius: 20px;
@@ -237,4 +242,31 @@ a {
 .swal2-cancel {
   border-radius: 10px !important;
   background: #e53935 !important;
+}
+.card-header .btn {
+    transition: 0.3s ease;
+    background: transparent;
+    border: none;
+    padding: 6px 10px;
+}
+
+/* EDIT button hover */
+.card-header .btn:first-child:hover {
+    color: #ff9800;
+    transform: scale(1.2);
+}
+
+/* DELETE button hover */
+.card-header .btn:last-child:hover {
+    color: #e53935;
+    transform: scale(1.2);
+}
+.btn-edit:hover {
+    color: #ff9800;
+    transform: scale(1.2);
+}
+
+.btn-delete:hover {
+    color: #e53935;
+    transform: scale(1.2);
 }
