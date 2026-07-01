@@ -36,11 +36,11 @@ async function signup(event) {
         icon: "success",
         title: "Signup Successful"
     }).then(() => {
-        window.location.href = "login.html";
+        window.location.href = "dashboard.html";
     });
 }
 // console.log(supabase);
-console.log("Signup function called");
+// console.log("Signup function called");
 
 const loginForm = document.getElementById("loginForm");
 
@@ -102,6 +102,70 @@ var cardBg = "";
 var title = document.getElementById("title");
 var description = document.getElementById("description");
 let editIndex = null;
+async  function searchPosts() {
+ let searchInput = document.getElementById("searchInput").value;
+ console.log("Searching for:", searchInput);
+ try{
+//     const { data, error } = await supabase
+//   .from('post_app_table')
+//   .select("*")
+//   .ilike('title', `%${searchInput}%`)
+const { data, error } = await supabase
+  .from("post_app_table")
+  .select("*").order('id', { ascending: false })
+  .or(`title.ilike.%${searchInput}%,description.ilike.%${searchInput}%`);
+   const postsContainer = document.getElementById("posts");
+postsContainer.innerHTML = ""; 
+   data.forEach(post => {
+            postsContainer.innerHTML += `
+<div class="card mb-3">
+
+<div class="card-header d-flex justify-content-between">
+    <span>~post ${post.id}</span>
+
+    <div>
+        <button class="btn  btn-sm"
+        onclick="editPost(event,${post.id},'${post.description}','${post.title}','${post.bg_img}','${post.text_color}')">
+        <i class="bi bi-pencil-square"></i>
+        </button>
+
+        <button class="btn  btn-sm"
+        onclick="delpost(event,${post.id})">
+         <i class="bi bi-trash"></i>
+        </button>
+    </div>
+</div>
+
+<div class="card-body"
+style="background-image:url('${post.bg_img}');background-size:cover;background-position:center;">
+<h4 style="color:${post.text_color}">
+${post.title}
+</h4>
+<p style="color:${post.text_color}">
+${post.description}
+</p>
+</div>
+
+</div>
+`;
+        });
+   console.log(data)
+   if(!data.length){
+    Swal.fire({
+        icon: "info",
+        title: "No Results",
+        text: "No posts found matching your search."
+    });
+    postsContainer.innerHTML = "<p class='text-center'>No posts found.</p>";
+   }
+   if (error) {
+    console.log("Error searching posts:", error);
+    return;
+   }
+ }catch(error){
+    console.log("Error searching posts:", error);
+ }
+}
 window.onload = async function () {
     const postsContainer = document.getElementById("posts");
 
@@ -130,7 +194,7 @@ window.onload = async function () {
 
     <div>
         <button class="btn  btn-sm"
-        onclick="editPost(event,${post.id},'${post.description}','${post.title}','${post.bg_img}')">
+        onclick="editPost(event,${post.id},'${post.description}','${post.title}','${post.bg_img}','${post.text_color}')">
         <i class="bi bi-pencil-square"></i>
         </button>
 
@@ -143,10 +207,10 @@ window.onload = async function () {
 
 <div class="card-body"
 style="background-image:url('${post.bg_img}');background-size:cover;background-position:center;">
-<h4 style="color:${selectedTextColor}">
+<h4 style="color:${post.text_color}">
 ${post.title}
 </h4>
-<p style="color:${selectedTextColor}">
+<p style="color:${post.text_color}">
 ${post.description}
 </p>
 </div>
@@ -159,6 +223,7 @@ ${post.description}
         console.log("Catch Error:", err);
     }
 };
+
 async function post() {
     var title = document.getElementById("title")
     var description = document.getElementById("description")
@@ -169,7 +234,7 @@ async function post() {
             try {
                 const { data, error } = await supabase
                     .from('post_app_table')
-                    .update({ title: title.value, description: description.value, bg_img: cardBg })
+                    .update({ title: title.value, description: description.value, bg_img: cardBg, text_color: selectedTextColor })
                     .eq('id', editIndex)
                     .select()
                 console.log(data);
@@ -189,7 +254,7 @@ async function post() {
             try {
                 const { data, error } = await supabase
                     .from('post_app_table')
-                    .insert({ title: title.value, description: description.value, bg_img: cardBg })
+                    .insert({ title: title.value, description: description.value, bg_img: cardBg, text_color: selectedTextColor })
                     .select()
                 console.log("Post data", data);
                 if (error) console.log(error)
@@ -236,6 +301,29 @@ function addImg(src) {
         }
     });
 }
+// var imageInput = document.getElementById("imgInput")
+// var previewImg = document.getElementById("previewImg")
+// var storedBg = localStorage.getItem("cardBg");
+// if (storedBg) {
+//     cardBg = storedBg;
+//     previewImg.src = cardBg;
+//     previewImg.style.display = "block";
+// }
+
+// imageInput.addEventListener("change", function () {
+//     var file = imageInput.files[0];
+
+//     if (file) {
+//         var reader = new FileReader();
+//         reader.onload = function (e) {
+//             previewImg.src = e.target.result;
+//             previewImg.style.display = "block";
+//             cardBg = e.target.result;
+//             localStorage.setItem("cardBg", cardBg);
+//         };
+//         reader.readAsDataURL(file);
+//     }
+// });
 async function delpost(event, id) {
 
     const result = await Swal.fire({
@@ -286,3 +374,4 @@ window.addImg = addImg;
 window.applycolor = applycolor;
 window.editPost = editPost;
 window.delpost = delpost;
+window.searchPosts = searchPosts;

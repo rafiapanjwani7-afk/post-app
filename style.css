@@ -1,159 +1,445 @@
-body {
+/* ===========================
+   GLOBAL
+=========================== */
+
+* {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
-    min-height: 100vh;
-    background-color: #eef2f7;
+    box-sizing: border-box;
 }
+
 body {
+    min-height: 100vh;
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(135deg, #eef2f7, #dce8f5);
     scroll-behavior: smooth;
 }
 
-.navbar {
-    background: #00897B;
-    background: linear-gradient(90deg, #607d8b, #455a64);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
+/* Scrollbar */
+
+::-webkit-scrollbar {
+    width: 8px;
 }
+
+::-webkit-scrollbar-thumb {
+    background: #00897b;
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f2f2f2;
+}
+
+/* ===========================
+   NAVBAR
+=========================== */
+
+.navbar {
+    background: linear-gradient(135deg, #607d8b, #37474f);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .2);
+    padding: 12px 0;
+}
+
 .navbar-brand,
 .nav-link {
-    color: #fff !important;
+    color: white !important;
     font-weight: 600;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
 }
 
 .nav-link:hover {
-    color: #cfd8dc !important;
-    text-decoration: underline;
+    color: #b2dfdb !important;
 }
+
+/* ===========================
+   LOGIN & SIGNUP
+=========================== */
 
 .signup,
 .login {
-    width: 100%;
+
     max-width: 420px;
+    width: 100%;
+
+    background: rgba(96, 125, 139, .95);
+
+    backdrop-filter: blur(20px);
+
     border-radius: 20px;
-    padding: 25px;
-    background: #607d8b;
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
-    color: #fff;
+
+    padding: 30px;
+
+    color: white;
+
+    box-shadow: 0 12px 35px rgba(0, 0, 0, .25);
+
 }
 
+.signup input,
 .login input {
+
     width: 100%;
+
     padding: 14px;
-    margin: 12px 0;
+
+    margin: 10px 0;
+
     border: none;
+
     border-radius: 12px;
+
     outline: none;
-    font-size: 0.95rem;
-    box-sizing: border-box;
-    transition: box-shadow 0.3s ease;
+
+    transition: .3s;
+
 }
 
-.signup input {
-    width: 100%;
-    padding: 14px;
-    margin: 12px 0;
+.signup input:focus,
+.login input:focus {
+
+    box-shadow: 0 0 10px rgba(255, 255, 255, .6);
+
+}
+
+/* ===========================
+   BUTTONS
+=========================== */
+
+button {
+
+    transition: .3s;
+
+}
+
+.loginbtn,
+.postbtn,
+.logoutBtn {
+
+    background: linear-gradient(135deg, #26a69a, #00796b) !important;
+    color: white;
+
     border: none;
-    border-radius: 12px;
-    outline: none;
-    font-size: 0.95rem;
-    box-sizing: border-box;
-    transition: box-shadow 0.3s ease;
+
+    border-radius: 25px;
+
+    font-weight: 600;
+
 }
-input:focus {
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
-}
+
 .loginbtn {
-    cursor: pointer;
+
     width: 220px;
-    margin: 10px auto;
-    padding: 12px 20px;
-    border-radius: 20px;
-    background: linear-gradient(135deg, #26a69a, #00796b);
-    border: none;
-    color: #cfd8dc;
-    font-weight: bold;
-    transition: 0.3s;
+
+    padding: 12px;
+
 }
+
+.postbtn {
+
+    width: 100%;
+
+    padding: 12px;
+
+}
+
+.logoutBtn {
+
+    width: 120px;
+
+    padding: 10px;
+
+}
+
 button:hover {
-    transform: scale(1.1);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-    background: linear-gradient(135deg, #00796b, #004d40);
-    cursor: pointer;
-    transform: scale(1.03);
-    transition: 0.2s ease;
+
+    transform: translateY(-3px);
+
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .25);
+
 }
+
+/* ===========================
+    FORM
+=========================== */
+
+.form-control {
+
+    border-radius: 12px;
+
+    transition: .3s;
+
+}
+
+.form-control:hover {
+
+    border-color: #26a69a;
+
+}
+
+.form-control:focus {
+
+    border-color: #26a69a;
+
+    box-shadow: 0 0 0 .2rem rgba(38, 166, 154, .3);
+
+}
+
+/* ===========================
+   CARDS
+=========================== */
+
 .card {
+
+    border: none;
+
     border-radius: 20px;
+
     overflow: hidden;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+
+    box-shadow: 0 15px 30px rgba(0, 0, 0, .1);
+
     margin-bottom: 25px;
-    transition: 0.3s ease;
+
+    transition: .35s;
+
+    animation: fade .5s ease;
+
 }
+
 .card:hover {
 
-    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.15);
+    transform: translateY(-8px);
+
+    box-shadow: 0 20px 40px rgba(0, 0, 0, .18);
+
 }
 
 .card-header {
-    background-color: #cfd8dc;
-    font-weight: 600;
+
+    background: #eceff1;
+
     color: #455a64;
-    font-size: 0.95rem;
-    padding: 10px 15px;
-    border-bottom: 1px solid #b0bec5;
+
+    font-weight: 600;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 12px 18px;
+
 }
 
 .card-body {
-    background-size: cover;
-    background-repeat: no-repeat;
+
     min-height: 180px;
-    position: relative;
-    padding: 20px;
-    color: #023d36;
+
+    background-size: cover;
+
+    background-position: center;
+
+    padding: 25px;
+
+}
+
+.card-title {
+
+    font-weight: 700;
+
+    font-size: 2rem;
+
 }
 
 .card-text {
+
     color: #004d40;
+
 }
 
-.postcont {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-.editBtn {
-    width: 70px;
-    border-radius: 15px;
-    padding: 20px;
-    font-weight: 600;
-    transition: 0.3s;
-    color: #049179;
-    background: transparent;
+/* ===========================
+   EDIT DELETE BUTTONS
+=========================== */
+
+.card-header button {
+
+    background: none;
+
     border: none;
+
+    transition: .3s;
+
 }
-.editBtn:hover {
-    color: #333;
-    background-color: rgba(29, 172, 155, 0.493);
-    transform: scale(1.1);
+
+.btn-edit {
+
+    color: #ff9800;
+
 }
-.delBtn {
-    width: 70px;
-    border-radius: 15px;
-    padding: 20px;
-    font-weight: 600;
-    transition: 0.3s;
+
+.btn-delete {
+
     color: #e53935;
-    background: transparent;
-    border: none;
+
 }
-.delBtn:hover {
-    background: #e53935;
+
+.btn-edit:hover {
+
+    transform: scale(1.2);
+
+}
+
+.btn-delete:hover {
+
+    transform: scale(1.2);
+
+}
+
+/* ===========================
+   IMAGE SELECT
+=========================== */
+
+.images img {
+
+    width: 55px;
+
+    height: 55px;
+
+    border-radius: 12px;
+
+    margin-right: 10px;
+
+    transition: .3s;
+
+    cursor: pointer;
+
+}
+
+.images img:hover {
+
+    transform: scale(1.15);
+
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .2);
+
+}
+
+.addImg {
+
+    border: 3px solid #00b09b !important;
+
+    transform: scale(1.08);
+
+}
+
+/* ===========================
+   COLOR BOX
+=========================== */
+
+.colorbox {
+
+    cursor: pointer;
+
+    border: 2px solid transparent;
+
+    transition: .3s;
+
+}
+
+.colorbox:hover {
+
     transform: scale(1.1);
+
+}
+
+.colorbox.selected {
+
+    border: 3px solid #00897b;
+
+    transform: scale(1.2);
+
+}
+
+/* ===========================
+   SWEET ALERT
+=========================== */
+
+.swal2-popup {
+
+    border-radius: 20px !important;
+
+    background: linear-gradient(135deg, #607d8b, #455a64) !important;
+
+    color: white !important;
+
+}
+
+.swal2-confirm {
+
+    background: #26a69a !important;
+
+    border-radius: 10px !important;
+
+}
+
+.swal2-cancel {
+
+    background: #e53935 !important;
+
+    border-radius: 10px !important;
+
+}
+
+/* ===========================
+   STICKY
+=========================== */
+
+.postcont {
+
+    position: sticky;
+
+    top: 15px;
+
+}
+
+/* ===========================
+   LINKS
+=========================== */
+
+a {
+
+    color: #004d40;
+
+    text-decoration: none;
+
+}
+
+a:hover {
+
+    color: #00897b;
+
+}
+
+.postbtn {
+    width: 100%;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px;
     color: #fff;
-    border-radius: 8px;
+    font-weight: 600;
+
+    background: linear-gradient(135deg, #26a69a, #00796b) !important;
+    transition: all .3s ease;
+}
+
+
+.postbtn:hover {
+    background: linear-gradient(135deg, #2bbbad, #00695c) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 121, 107, .35);
 }
 
 .card .btn-primary {
@@ -162,13 +448,14 @@ button:hover {
     padding: 10px 25px;
     border-radius: 25px;
     font-weight: 600;
+    /* background: linear-gradient(90deg, #00b09b, #96c93d) !important; */
     background: linear-gradient(135deg, #26a69a, #00796b);
     /* box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); */
     transition: 0.3s;
 }
 
 .card .btn-primary:hover {
-    transform: scale(1);
+    transform: scale(1.05);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     background: linear-gradient(135deg, #00796b, #004d40);
 }
@@ -179,75 +466,73 @@ button:hover {
     margin-top: 10px;
 }
 
-.images img {
-    width: 55px;
-    height: 55px;
+.search-box {
+    position: relative;
+    width: 100%;
+}
+
+/* INPUT */
+.search-box input {
+    height: 48px;
     border-radius: 15px;
-    margin-right: 10px;
-
+    padding-right: 45px;
+    /* icon ke liye space */
 }
 
-.images img:hover {
-    cursor: pointer;
-    transform: scale(1.2);
+/* BUTTON ICON */
+.search-btn {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
 
-}
+    width: 34px;
+    height: 34px;
 
-a {
-    color: #004d40;
-    text-decoration: none;
-}
-
-.addImg {
-    border: 2px solid #036158 !important;
-}
-
-.form-control:focus {
-    border-color: #26a69998;
-    box-shadow: 0 0 0 0.2rem #015f54c4 !important;
-}
-
-.colorbox {
-    cursor: pointer;
-    border: 2px solid transparent;
-}
-
-.colorbox.selected {
-    border: 2px solid #036158 !important;
-    transform: scale(1.2);
-}
-.logoutBtn {
-    background: linear-gradient(135deg, #00796b, #004d40);
-    color: #fff;
     border: none;
-    padding: 10px 20px;
-    border-radius: 25px;
-    font-weight: 600;
-    transition: 0.3s;
-    width: 120px;
-}
-/* SweetAlert2 Custom Styles */
- .swal2-popup {
-  border-radius: 20px !important;
-   background: linear-gradient(90deg, #607d8b, #455a64)!important;
-  border: 1px solid rgba(255,255,255,0.3);
-  color: #fff !important;
+    background: #26a69a;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+    font-size: 16px;
+
+    z-index: 10;
+    /* 🔥 IMPORTANT */
+    cursor: pointer;
 }
 
-.swal2-confirm {
-  background: #26a69a !important;
-  border-radius: 10px !important;
+/* hover */
+.search-btn:hover {
+    background: #00796b;
+    transform: translateY(-50%) scale(1.05);
 }
 
-.swal2-cancel {
-  border-radius: 10px !important;
-  background: #e53935 !important;
-}
-.card-header .btn {
-    transition: 0.3s ease;
-    background: transparent;
-    border: none;
-    padding: 6px 10px;
+/* ===========================
+   ANIMATION
+=========================== */
+
+@keyframes fade {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(20px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
 }
 
 /* EDIT button hover */
@@ -261,6 +546,7 @@ a {
     color: #e53935;
     transform: scale(1.2);
 }
+
 .btn-edit:hover {
     color: #ff9800;
     transform: scale(1.2);
