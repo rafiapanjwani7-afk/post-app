@@ -130,6 +130,7 @@ ${post.description}
     }
 };
 let Email;
+let userid;
 async function post() {
     var title = document.getElementById("title")
     var description = document.getElementById("description")
@@ -141,6 +142,7 @@ async function post() {
             console.log(user.email);
 
             Email = user.email;
+            userid =user.id
             if (error) {
                 console.log(error);
 
@@ -180,7 +182,7 @@ async function post() {
             try {
                 const { data, error } = await supabase
                     .from('post_app_table')
-                    .insert({ title: title.value, description: description.value, bg_img: cardBg, text_color: selectedTextColor, email: Email })
+                    .insert({ title: title.value, description: description.value, bg_img: cardBg, text_color: selectedTextColor, email: Email  ,user_id:userid})
                     .select()
                 console.log("Post data", data);
                 if (error) console.log(error)
@@ -200,11 +202,23 @@ async function post() {
     title.value = ""
     description.value = ""
 }
-function editPost(event, id, desc, title, bg_img) {
+ async function editPost(event, id, desc, title, bg_img) {
     console.log(title, desc, id);
     document.getElementById("title").value = title
     document.getElementById("description").value = desc
     console.log(title, description);
+    // const {
+    //     data: { user },
+    //     error: userError,
+    //   } = await supabase.auth.getUser();
+    //   console.log(user);
+    //   console.log(userError);
+     
+    //   if (userError || !user) {
+    //     console.log("User fetch error:", userError);
+    //     alert("You must login first!");
+    //     return;  
+    // }
     const card = event.target.closest(".card");
     if (card) card.remove();
     edited = true;

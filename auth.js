@@ -100,7 +100,8 @@ async function login(event) {
         timer: 900,
         confirmButtonText: 'Proceed to Dashboard',
         showConfirmButton: false
-    }).then(() => {
+    })
+    .then(() => {
         window.location.href = 'dashboard.html'
     })
 }
@@ -119,7 +120,8 @@ async function logout() {
     Swal.fire({
         icon: 'success',
         title: 'Logged Out'
-    }).then(() => {
+    })
+    .then(() => {
         window.location.href = 'index.html'
     })
 }
