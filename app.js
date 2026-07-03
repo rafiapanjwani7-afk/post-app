@@ -1,98 +1,4 @@
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
-const supabase_url = "https://izorczhqnqgwpbjxguoi.supabase.co"
-const publish_key = "sb_publishable_WR1TFRd5ys0ycT4nl228oA_fdYnPxE-"
-
-const supabase = createClient(supabase_url, publish_key)
-const signupForm = document.getElementById("signupForm");
-
-if (signupForm) {
-    signupForm.addEventListener("submit", signup);
-}
-
-async function signup(event) {
-    event.preventDefault();
-
-    console.log("Signup function called");
-
-    const name = document.getElementById("signName").value;
-    const email = document.getElementById("signEmail").value;
-    const password = document.getElementById("signPassword").value;
-
-    const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-            data: { name }
-        }
-    });
-
-    console.log(data);
-    console.log(error);
-    if (error) {
-        Swal.fire("Error", error.message, "error");
-        return;
-    }
-    Swal.fire({
-        icon: "success",
-        title: "Signup Successful"
-    }).then(() => {
-        window.location.href = "dashboard.html";
-    });
-}
-// console.log(supabase);
-// console.log("Signup function called");
-
-const loginForm = document.getElementById("loginForm");
-
-if (loginForm) {
-    loginForm.addEventListener("submit", login);
-}
-
-async function login(event) {
-    event.preventDefault();
-    let email = document.getElementById("loginEmail").value;
-    let password = document.getElementById("loginPassword").value;
-
-    if (!email || !password) {
-        Swal.fire("Error", "Please fill in all fields!", "error");
-        return;
-    }
-
-    const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password
-    });
-    console.log(data);
-    console.log(error);
-    if (error) {
-        Swal.fire("Error", error.message, "error");
-        return;
-    }
-
-    Swal.fire({
-        icon: "success",
-        title: "Login Successful!"
-    })
-        .then(() => {
-            window.location.href = "dashboard.html";
-        });
-}
-async function logout() {
-    const { error } = await supabase.auth.signOut();
-
-    if (error) {
-        Swal.fire("Error", error.message, "error");
-        return;
-    }
-
-    Swal.fire({
-        icon: "success",
-        title: "Logged Out",
-        text: "You have been logged out successfully!"
-    }).then(() => {
-        window.location.href = "login.html";
-    });
-}
+import supabase from "./supabase.js";
 
 let edited = false;
 var selectedTextColor = "";
@@ -102,21 +8,21 @@ var cardBg = "";
 var title = document.getElementById("title");
 var description = document.getElementById("description");
 let editIndex = null;
-async  function searchPosts() {
- let searchInput = document.getElementById("searchInput").value;
- console.log("Searching for:", searchInput);
- try{
-//     const { data, error } = await supabase
-//   .from('post_app_table')
-//   .select("*")
-//   .ilike('title', `%${searchInput}%`)
-const { data, error } = await supabase
-  .from("post_app_table")
-  .select("*").order('id', { ascending: false })
-  .or(`title.ilike.%${searchInput}%,description.ilike.%${searchInput}%`);
-   const postsContainer = document.getElementById("posts");
-postsContainer.innerHTML = ""; 
-   data.forEach(post => {
+async function searchPosts() {
+    let searchInput = document.getElementById("searchInput").value;
+    console.log("Searching for:", searchInput);
+    try {
+        //     const { data, error } = await supabase
+        //   .from('post_app_table')
+        //   .select("*")
+        //   .ilike('title', `%${searchInput}%`)
+        const { data, error } = await supabase
+            .from("post_app_table")
+            .select("*").order('id', { ascending: false })
+            .or(`title.ilike.%${searchInput}%,description.ilike.%${searchInput}%`);
+        const postsContainer = document.getElementById("posts");
+        postsContainer.innerHTML = "";
+        data.forEach(post => {
             postsContainer.innerHTML += `
 <div class="card mb-3">
 
@@ -124,12 +30,12 @@ postsContainer.innerHTML = "";
     <span>~post ${post.id}</span>
 
     <div>
-        <button class="btn  btn-sm"
+        <button class="btn  btn-sm btn-edit text-warning"
         onclick="editPost(event,${post.id},'${post.description}','${post.title}','${post.bg_img}','${post.text_color}')">
         <i class="bi bi-pencil-square"></i>
         </button>
 
-        <button class="btn  btn-sm"
+        <button class="btn  btn-sm btn-delete text-danger"
         onclick="delpost(event,${post.id})">
          <i class="bi bi-trash"></i>
         </button>
@@ -149,22 +55,22 @@ ${post.description}
 </div>
 `;
         });
-   console.log(data)
-   if(!data.length){
-    Swal.fire({
-        icon: "info",
-        title: "No Results",
-        text: "No posts found matching your search."
-    });
-    postsContainer.innerHTML = "<p class='text-center'>No posts found.</p>";
-   }
-   if (error) {
-    console.log("Error searching posts:", error);
-    return;
-   }
- }catch(error){
-    console.log("Error searching posts:", error);
- }
+        console.log(data)
+        if (!data.length) {
+            Swal.fire({
+                icon: "info",
+                title: "No Results",
+                text: "No posts found matching your search."
+            });
+            postsContainer.innerHTML = "<p class='text-center'>No posts found.</p>";
+        }
+        if (error) {
+            console.log("Error searching posts:", error);
+            return;
+        }
+    } catch (error) {
+        console.log("Error searching posts:", error);
+    }
 }
 window.onload = async function () {
     const postsContainer = document.getElementById("posts");
@@ -190,7 +96,7 @@ window.onload = async function () {
 <div class="card mb-3">
 
 <div class="card-header d-flex justify-content-between">
-    <span>~post ${post.id}</span>
+    <span> ${post.id}~${post.email}</span>
 
     <div>
         <button class="btn  btn-sm"
@@ -223,13 +129,28 @@ ${post.description}
         console.log("Catch Error:", err);
     }
 };
-
+let Email;
 async function post() {
     var title = document.getElementById("title")
     var description = document.getElementById("description")
     console.log(title.value, description.value);
     var posts = document.getElementById("posts")
     if (title.value.trim() && description.value.trim()) {
+        try {
+            const { data: { user }, error } = await supabase.auth.getUser()
+            console.log(user.email);
+
+            Email = user.email;
+            if (error) {
+                console.log(error);
+
+            }
+        }
+
+        catch (error) {
+            console.log(error);
+        }
+
         if (edited) {
             try {
                 const { data, error } = await supabase
@@ -241,6 +162,11 @@ async function post() {
                 if (error) {
                     console.log(error);
                 }
+                Swal.fire({
+                    icon: "success",
+                    title: "Updated!",
+                    text: "Your post has been updated successfully.",
+                });
                 edited = false
                 editIndex = null
                 let postBtn = document.getElementById("postBtn")
@@ -254,7 +180,7 @@ async function post() {
             try {
                 const { data, error } = await supabase
                     .from('post_app_table')
-                    .insert({ title: title.value, description: description.value, bg_img: cardBg, text_color: selectedTextColor })
+                    .insert({ title: title.value, description: description.value, bg_img: cardBg, text_color: selectedTextColor, email: Email })
                     .select()
                 console.log("Post data", data);
                 if (error) console.log(error)
@@ -279,7 +205,7 @@ function editPost(event, id, desc, title, bg_img) {
     document.getElementById("title").value = title
     document.getElementById("description").value = desc
     console.log(title, description);
-   const card = event.target.closest(".card");
+    const card = event.target.closest(".card");
     if (card) card.remove();
     edited = true;
     editIndex = id;
@@ -351,8 +277,8 @@ async function delpost(event, id) {
 
         Swal.fire("Deleted!", "Your post has been deleted.", "success");
 
-       const card = event.target.closest(".card");
-    if (card) card.remove();
+        const card = event.target.closest(".card");
+        if (card) card.remove();
 
     } catch (error) {
         console.log(error);
@@ -375,3 +301,38 @@ window.applycolor = applycolor;
 window.editPost = editPost;
 window.delpost = delpost;
 window.searchPosts = searchPosts;
+
+// Theme support: toggle and persist user's preference
+function applyTheme(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+
+    const icon = document.getElementById("themeIcon");
+
+    if (icon) {
+        if (theme === "dark") {
+            // Dark mode active → Sun icon dikhao
+            icon.className = "bi bi-sun-fill";
+        } else {
+            // Light mode active → Moon icon dikhao
+            icon.className = "bi bi-moon-fill";
+        }
+    }
+}
+
+function toggleTheme() {
+    const current = document.documentElement.getAttribute("data-theme") === "dark"
+        ? "dark"
+        : "light";
+
+    applyTheme(current === "dark" ? "light" : "dark");
+}
+
+window.toggleTheme = toggleTheme;
+
+(function initTheme() {
+    const stored = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const theme = stored || (prefersDark ? 'dark' : 'light');
+    applyTheme(theme);
+})(); 

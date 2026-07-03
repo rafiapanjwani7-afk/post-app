@@ -11,23 +11,92 @@
 body {
     min-height: 100vh;
     font-family: "Poppins", sans-serif;
-    background: linear-gradient(135deg, #eef2f7, #dce8f5);
+    background: var(--body-bg, linear-gradient(135deg, #eef2f7, #dce8f5));
     scroll-behavior: smooth;
 }
 
-/* Scrollbar */
+/* ===========================
+   THEME VARIABLES
+=========================== */
+
+:root {
+    --bg-gradient: linear-gradient(135deg, #eef2f7, #dce8f5);
+    --body-bg: var(--bg-gradient);
+
+    --scrollbar-thumb: #00897b;
+    --scrollbar-track: #f2f2f2;
+
+    --navbar-bg: linear-gradient(135deg, #607d8b, #37474f);
+    --nav-text: #ffffff;
+
+    --auth-card-bg: rgba(96, 125, 139, .95);
+    --auth-text: #ffffff;
+
+    --primary-gradient: linear-gradient(135deg, #26a69a, #00796b);
+    --primary-gradient-hover: linear-gradient(135deg, #2bbbad, #00695c);
+
+    --form-focus: rgba(38, 166, 154, .3);
+
+    --card-header-bg: #eceff1;
+    --card-header-text: #455a64;
+    --card-text: #004d40;
+
+    --link-color: #004d40;
+    --link-hover: #00897b;
+
+    --swal-bg: linear-gradient(135deg, #607d8b, #455a64);
+    --swal-confirm: #26a69a;
+    --swal-cancel: #e53935;
+
+    --search-btn-bg: #26a69a;
+}
+
+[data-theme="dark"] {
+    --body-bg: linear-gradient(135deg,#071021,#08121a);
+
+    --scrollbar-thumb: #3b82f6;
+    --scrollbar-track: #0b1220;
+
+    --navbar-bg: linear-gradient(135deg,#0f1724,#0b1220);
+    --nav-text: #e6eef6;
+
+    --auth-card-bg: rgba(20,25,30,.85);
+    --auth-text: #e6eef6;
+
+    --primary-gradient: linear-gradient(135deg,#0ea5a0,#065f46);
+    --primary-gradient-hover: linear-gradient(135deg,#059669,#044e3b);
+
+    --form-focus: rgba(14,165,160,.2);
+
+    --card-header-bg: #111827;
+    --card-header-text: #e6eef6;
+    --card-text: #c7e6dc;
+
+    --link-color: #9fe6d3;
+    --link-hover: #7ee1c9;
+
+    --swal-bg: linear-gradient(135deg,#1f2937,#111827);
+    --swal-confirm: #059669;
+    --swal-cancel: #ef4444;
+
+    --search-btn-bg: #059669;
+}
+
+/* ===========================
+   SCROLLBAR
+=========================== */
 
 ::-webkit-scrollbar {
     width: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #00897b;
+    background: var(--scrollbar-thumb);
     border-radius: 20px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #f2f2f2;
+    background: var(--scrollbar-track);
 }
 
 /* ===========================
@@ -35,14 +104,14 @@ body {
 =========================== */
 
 .navbar {
-    background: linear-gradient(135deg, #607d8b, #37474f);
+    background: var(--navbar-bg);
     box-shadow: 0 10px 30px rgba(0, 0, 0, .2);
     padding: 12px 0;
 }
 
 .navbar-brand,
 .nav-link {
-    color: white !important;
+    color: var(--nav-text) !important;
     font-weight: 600;
 }
 
@@ -51,57 +120,38 @@ body {
 }
 
 .nav-link:hover {
-    color: #b2dfdb !important;
+    color: var(--link-hover) !important;
 }
 
 /* ===========================
-   LOGIN & SIGNUP
+   AUTH (LOGIN / SIGNUP)
 =========================== */
 
 .signup,
 .login {
-
     max-width: 420px;
     width: 100%;
-
-    background: rgba(96, 125, 139, .95);
-
+    background: var(--auth-card-bg);
     backdrop-filter: blur(20px);
-
     border-radius: 20px;
-
     padding: 30px;
-
-    color: white;
-
+    color: var(--auth-text);
     box-shadow: 0 12px 35px rgba(0, 0, 0, .25);
-
 }
 
 .signup input,
 .login input {
-
     width: 100%;
-
     padding: 14px;
-
     margin: 10px 0;
-
     border: none;
-
     border-radius: 12px;
-
     outline: none;
-
-    transition: .3s;
-
 }
 
 .signup input:focus,
 .login input:focus {
-
-    box-shadow: 0 0 10px rgba(255, 255, 255, .6);
-
+    box-shadow: 0 0 10px rgba(255,255,255,.4);
 }
 
 /* ===========================
@@ -109,82 +159,40 @@ body {
 =========================== */
 
 button {
-
-    transition: .3s;
-
-}
-
-.loginbtn,
-.postbtn,
-.logoutBtn {
-
-    background: linear-gradient(135deg, #26a69a, #00796b) !important;
-    color: white;
-
-    border: none;
-
-    border-radius: 25px;
-
-    font-weight: 600;
-
-}
-
-.loginbtn {
-
-    width: 220px;
-
-    padding: 12px;
-
-}
-
-.postbtn {
-
-    width: 100%;
-
-    padding: 12px;
-
-}
-
-.logoutBtn {
-
-    width: 120px;
-
-    padding: 10px;
-
+    transition: all .3s ease;
 }
 
 button:hover {
-
     transform: translateY(-3px);
-
-    box-shadow: 0 10px 20px rgba(0, 0, 0, .25);
-
+    box-shadow: 0 10px 20px rgba(0,0,0,.25);
 }
 
+.loginbtn,
+.postBtn,
+.logoutBtn {
+    background: var(--primary-gradient) !important;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-weight: 600;
+}
+
+.loginbtn { width: 220px; padding: 12px; }
+.postBtn { width: 100%; padding: 12px; }
+.logoutBtn { width: 120px; padding: 10px; }
+
 /* ===========================
-    FORM
+   FORM
 =========================== */
 
 .form-control {
-
     border-radius: 12px;
-
     transition: .3s;
-
-}
-
-.form-control:hover {
-
-    border-color: #26a69a;
-
 }
 
 .form-control:focus {
-
     border-color: #26a69a;
-
-    box-shadow: 0 0 0 .2rem rgba(38, 166, 154, .3);
-
+    box-shadow: 0 0 0 .2rem var(--form-focus);
 }
 
 /* ===========================
@@ -192,111 +200,66 @@ button:hover {
 =========================== */
 
 .card {
-
     border: none;
-
     border-radius: 20px;
-
     overflow: hidden;
-
-    box-shadow: 0 15px 30px rgba(0, 0, 0, .1);
-
+    box-shadow: 0 15px 30px rgba(0,0,0,.1);
     margin-bottom: 25px;
-
     transition: .35s;
-
-    animation: fade .5s ease;
-
 }
 
 .card:hover {
-
     transform: translateY(-8px);
-
-    box-shadow: 0 20px 40px rgba(0, 0, 0, .18);
-
+    box-shadow: 0 20px 40px rgba(0,0,0,.18);
 }
 
 .card-header {
-
-    background: #eceff1;
-
-    color: #455a64;
-
+    background: var(--card-header-bg);
+    color: var(--card-header-text);
     font-weight: 600;
-
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
-
     padding: 12px 18px;
+}
 
+/* Buttons inside card */
+.card-header .btn {
+    background: none;
+    border: none;
+    transition: .3s;
+}
+
+.card-header .btn:hover {
+    transform: scale(1.2);
+    opacity: .8;
+}
+
+.card-header .btn-edit {
+    color: #ff9800;
+}
+
+.card-header .btn-delete {
+    color: #e53935;
+}
+
+[data-theme="dark"] .card-header .btn-edit {
+    color: #fbbf24;
+}
+
+[data-theme="dark"] .card-header .btn-delete {
+    color: #ef4444;
 }
 
 .card-body {
-
     min-height: 180px;
-
     background-size: cover;
-
     background-position: center;
-
     padding: 25px;
-
-}
-
-.card-title {
-
-    font-weight: 700;
-
-    font-size: 2rem;
-
 }
 
 .card-text {
-
-    color: #004d40;
-
-}
-
-/* ===========================
-   EDIT DELETE BUTTONS
-=========================== */
-
-.card-header button {
-
-    background: none;
-
-    border: none;
-
-    transition: .3s;
-
-}
-
-.btn-edit {
-
-    color: #ff9800;
-
-}
-
-.btn-delete {
-
-    color: #e53935;
-
-}
-
-.btn-edit:hover {
-
-    transform: scale(1.2);
-
-}
-
-.btn-delete:hover {
-
-    transform: scale(1.2);
-
+    color: var(--card-text);
 }
 
 /* ===========================
@@ -304,35 +267,21 @@ button:hover {
 =========================== */
 
 .images img {
-
     width: 55px;
-
     height: 55px;
-
     border-radius: 12px;
-
     margin-right: 10px;
-
-    transition: .3s;
-
     cursor: pointer;
-
+    transition: .3s;
 }
 
 .images img:hover {
-
     transform: scale(1.15);
-
-    box-shadow: 0 8px 20px rgba(0, 0, 0, .2);
-
 }
 
 .addImg {
-
     border: 3px solid #00b09b !important;
-
     transform: scale(1.08);
-
 }
 
 /* ===========================
@@ -340,27 +289,18 @@ button:hover {
 =========================== */
 
 .colorbox {
-
     cursor: pointer;
-
     border: 2px solid transparent;
-
     transition: .3s;
-
 }
 
 .colorbox:hover {
-
     transform: scale(1.1);
-
 }
 
 .colorbox.selected {
-
     border: 3px solid #00897b;
-
     transform: scale(1.2);
-
 }
 
 /* ===========================
@@ -368,41 +308,19 @@ button:hover {
 =========================== */
 
 .swal2-popup {
-
     border-radius: 20px !important;
-
-    background: linear-gradient(135deg, #607d8b, #455a64) !important;
-
-    color: white !important;
-
+    background: var(--swal-bg) !important;
+    color: var(--auth-text) !important;
 }
 
 .swal2-confirm {
-
-    background: #26a69a !important;
-
+    background: var(--swal-confirm) !important;
     border-radius: 10px !important;
-
 }
 
 .swal2-cancel {
-
-    background: #e53935 !important;
-
+    background: var(--swal-cancel) !important;
     border-radius: 10px !important;
-
-}
-
-/* ===========================
-   STICKY
-=========================== */
-
-.postcont {
-
-    position: sticky;
-
-    top: 15px;
-
 }
 
 /* ===========================
@@ -410,105 +328,47 @@ button:hover {
 =========================== */
 
 a {
-
-    color: #004d40;
-
+    color: var(--link-color);
     text-decoration: none;
-
 }
 
 a:hover {
-
-    color: #00897b;
-
+    color: var(--link-hover);
 }
 
-.postbtn {
-    width: 100%;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 25px;
-    color: #fff;
-    font-weight: 600;
-
-    background: linear-gradient(135deg, #26a69a, #00796b) !important;
-    transition: all .3s ease;
-}
-
-
-.postbtn:hover {
-    background: linear-gradient(135deg, #2bbbad, #00695c) !important;
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(0, 121, 107, .35);
-}
-
-.card .btn-primary {
-    width: auto;
-    min-width: 120px;
-    padding: 10px 25px;
-    border-radius: 25px;
-    font-weight: 600;
-    /* background: linear-gradient(90deg, #00b09b, #96c93d) !important; */
-    background: linear-gradient(135deg, #26a69a, #00796b);
-    /* box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); */
-    transition: 0.3s;
-}
-
-.card .btn-primary:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-    background: linear-gradient(135deg, #00796b, #004d40);
-}
-
-.postbtn {
-    width: 100% !important;
-    padding: 12px 20px;
-    margin-top: 10px;
-}
+/* ===========================
+   SEARCH
+=========================== */
 
 .search-box {
     position: relative;
-    width: 100%;
 }
 
-/* INPUT */
 .search-box input {
     height: 48px;
     border-radius: 15px;
     padding-right: 45px;
-    /* icon ke liye space */
 }
 
-/* BUTTON ICON */
 .search-btn {
     position: absolute;
     right: 12px;
     top: 50%;
     transform: translateY(-50%);
-
     width: 34px;
     height: 34px;
-
     border: none;
-    background: #26a69a;
+    background: var(--search-btn-bg);
     border-radius: 50%;
-
+    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
-
-    color: white;
-    font-size: 16px;
-
-    z-index: 10;
-    /* 🔥 IMPORTANT */
     cursor: pointer;
 }
 
-/* hover */
 .search-btn:hover {
-    background: #00796b;
-    transform: translateY(-50%) scale(1.05);
+    background: var(--primary-gradient-hover);
 }
 
 /* ===========================
@@ -516,43 +376,26 @@ a:hover {
 =========================== */
 
 @keyframes fade {
-
-    from {
-
-        opacity: 0;
-
-        transform: translateY(20px);
-
-    }
-
-    to {
-
-        opacity: 1;
-
-        transform: translateY(0);
-
-    }
-
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-/* EDIT button hover */
-.card-header .btn:first-child:hover {
+.card {
+    animation: fade .5s ease;
+}
+.card-header .btn-edit {
     color: #ff9800;
-    transform: scale(1.2);
 }
 
-/* DELETE button hover */
-.card-header .btn:last-child:hover {
+.card-header .btn-delete {
     color: #e53935;
-    transform: scale(1.2);
 }
 
-.btn-edit:hover {
-    color: #ff9800;
-    transform: scale(1.2);
+/* DARK MODE */
+[data-theme="dark"] .card-header .btn-edit {
+    color: #fbbf24; /* soft yellow */
 }
 
-.btn-delete:hover {
-    color: #e53935;
-    transform: scale(1.2);
+[data-theme="dark"] .card-header .btn-delete {
+    color: #ef4444; /* bright red */
 }
